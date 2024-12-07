@@ -49,7 +49,7 @@ class MergeSort {
     mergeSort(startIdx, endIdx);
   }
 
-  private void mergeSort(int startIdx, int endIdx) {
+  private void mergeSort(int startIdx, int endIdx) { // TC -> O(n log(n))
     if (startIdx >= endIdx) {
       return;
     }
@@ -84,7 +84,7 @@ class MergeSort {
     }
 
     // re-write the arr with the sorted Data
-    for (int i = startIdx; i < endIdx; i++) {
+    for (int i = startIdx; i <= endIdx; i++) {
       arr[i] = temp.get(i - startIdx);
     }
   }
