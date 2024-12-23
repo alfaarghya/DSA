@@ -21,6 +21,7 @@ class BinaryTree {
   int index = -1;
 
   /*---- Calling Function ----*/
+
   BinaryTree(int[] data) {
     this.root = buildTree(data);
   }
@@ -49,9 +50,27 @@ class BinaryTree {
     System.out.println();
   }
 
+  public void heightOfTree() {
+    System.out.println("Height of the tree >> " + height(root));
+  }
+
+  public void countNodes() {
+    System.out.println("Number of Nodes in the tree >> " + count(root));
+  }
+
+  public void sumOfTree() {
+    System.out.println("Sum of the tree >> " + sum(root));
+  }
+
+  public void diameterOfTree() {
+    System.out.println("Diameter of the tree >> " + diameter(root).diameter);
+  }
+
   /*---- ----*/
 
   /*---- Working Function ----*/
+
+  /*---- build a tree form array ----*/
   private Node buildTree(int[] data) { // TC => O(n)
     index++; // increase the index
 
@@ -68,7 +87,9 @@ class BinaryTree {
 
     return newNode;
   }
+  /*---- ----*/
 
+  /*---- pre-order Traversal on tree ----*/
   private void preOrderTraversal(Node root) { // TC => O(n)
     // base case => we reach leaf Node
     if (root == null) {
@@ -81,7 +102,9 @@ class BinaryTree {
     // step3 => travel the right side of current tree
     preOrderTraversal(root.right);
   }
+  /*---- ----*/
 
+  /*---- in-order Traversal on tree ----*/
   private void inOrderTraversal(Node root) { // TC => O(n)
     // base case => we reach leaf Node
     if (root == null) {
@@ -94,7 +117,9 @@ class BinaryTree {
     // step3 => travel the right side of current tree
     inOrderTraversal(root.right);
   }
+  /*---- ----*/
 
+  /*---- post-order Traversal on tree ----*/
   private void postOrderTraversal(Node root) { // TC => O(n)
     // base case => we reach leaf Node
     if (root == null) {
@@ -107,7 +132,9 @@ class BinaryTree {
     // step3 => print the data
     System.out.print(root.data + " ");
   }
+  /*---- ----*/
 
+  /*---- level-order Traversal on tree ----*/
   private void levelOrderTraversal(Node root) { // TC => O(n)
     // corner case => tree is empty
     if (root == null) {
@@ -145,6 +172,85 @@ class BinaryTree {
     }
 
   }
+  /*---- ----*/
+
+  /*---- height of the tree ----*/
+  private int height(Node root) { // TC => O(n)
+    // base case => it's a leaf Node
+    if (root == null) {
+      return 0;
+    }
+
+    // step1 => travel left side of the current tree
+    int leftHeight = height(root.left);
+    // step2 => travel right side of the current tree
+    int rightHeight = height(root.right);
+    // step3 => calculate the height of the current tree
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+  /*---- ----*/
+
+  /*---- count of the Node of tree ----*/
+  private int count(Node root) { // TC => O(n)
+    // base case => it's a leaf Node
+    if (root == null) {
+      return 0;
+    }
+
+    // step1 => travel left side of the current tree
+    int leftCount = count(root.left);
+    // step2 => travel right side of the current tree
+    int rightCount = count(root.right);
+    // step3 => count the Node of the current tree
+    return leftCount + rightCount + 1;
+  }
+  /*---- ----*/
+
+  /*---- sum of the tree ----*/
+  private int sum(Node root) { // TC => O(n)
+    // base case => it's a leaf Node
+    if (root == null) {
+      return 0;
+    }
+
+    // step1 => travel left side of the current tree
+    int leftSum = sum(root.left);
+    // step2 => travel right side of the current tree
+    int rightSum = sum(root.right);
+    // step3 => calculate the sum of the current tree
+    return leftSum + rightSum + root.data;
+  }
+  /*---- ----*/
+
+  /*---- calculate diameter ----*/
+  private static class Info {
+    int diameter;
+    int height;
+
+    Info(int diameter, int height) {
+      this.diameter = diameter;
+      this.height = height;
+    }
+  }
+
+  private Info diameter(Node root) {
+    // base case => it's a leaf Node
+    if (root == null) {
+      return new Info(0, 0);
+    }
+
+    // step1 => travel left side of the current tree
+    Info leftInfo = diameter(root.left);
+    // step2 => travel right side of the current tree
+    Info rightInfo = diameter(root.right);
+    // step3 => calculate the diameter & height
+    int diam = Math.max(Math.max(leftInfo.diameter, rightInfo.diameter), leftInfo.height + rightInfo.height + 1);
+    int ht = Math.max(leftInfo.height, rightInfo.height) + 1;
+    // step4 => retrun from current tree
+    return new Info(diam, ht);
+  }
+
+  /*---- ----*/
 
   /*---- ----*/
 
@@ -164,11 +270,16 @@ public class Implement_BinaryTree {
              /   \
             11    12
  */
+
     BinaryTree bt = new BinaryTree(data);
     System.out.println("root ---> " + bt.root.data);
     bt.preOrderTraversal();
     bt.inOrderTraversal();
     bt.postOrderTraversal();
     bt.levelOrderTraversal();
+    bt.heightOfTree();
+    bt.countNodes();
+    bt.sumOfTree();
+    bt.diameterOfTree();
   }
 }
