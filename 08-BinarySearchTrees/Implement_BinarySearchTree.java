@@ -3,7 +3,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 class BinarySearchTree {
-/*---- Node ----*/
+  /*---- Node ----*/
   class Node {
     int data;
     Node left;
@@ -19,7 +19,7 @@ class BinarySearchTree {
 
   Node root;
 
-/*---- Calling Function ----*/
+  /*---- Calling Function ----*/
 
   BinarySearchTree(int[] data) {
     this.root = buildTree(data);
@@ -48,31 +48,42 @@ class BinarySearchTree {
     levelOrderTraversal(root);
     System.out.println();
   }
-  
+
   public void insert(int value) {
     insert(root, value);
   }
 
   public void search(int key) {
-    System.out.println("is "+key+" avaible?(true/false)");
-    System.out.println(">> "+search(root, key));
+    System.out.println("is " + key + " avaible?(true/false)");
+    System.out.println(">> " + search(root, key));
+  }
+
+  public void deleteNode(int deleteKey) {
+    try {
+      deleteNode(root, deleteKey);
+    } catch (Exception e) {
+      System.out.println("ERROR >> " + deleteKey + " is not in the tree");
+    }
   }
   /*---- ----*/
 
   /*---- Working Function ----*/
 
-/*---- build a tree form array ----*/
+  /*---- build a tree form array ----*/
   private Node buildTree(int[] data) { // TC => O(n)
     System.out.println("1. 1st Element will be Root Node \n2. nth Element will be root Node");
     System.out.print("Press(1 or 2) >> ");
-    
+
     Scanner scn = new Scanner(System.in);
-        
+
     int n = scn.nextInt();
+
+    scn.close();
+
     switch (n) {
       case 1:
         return buildBST_PreOrderRoot(data);
-        
+
       case 2:
         return buildBST_PostOrderRoot(data);
 
@@ -80,22 +91,25 @@ class BinarySearchTree {
         System.out.println("wrong choice");
         return null;
     }
+
   }
-    /*---- Build BST from pre-order dataset ----*/
+
+  /*---- Build BST from pre-order dataset ----*/
   private Node buildBST_PreOrderRoot(int[] data) {
     Node root = null;
-      //run a loop and insert the data
-    for(int i = 0; i < data.length; i++) {
+    // run a loop and insert the data
+    for (int i = 0; i < data.length; i++) {
       root = insert(root, data[i]);
     }
 
     return root;
   }
-    /*---- Build BST from post-order dataset ----*/
+
+  /*---- Build BST from post-order dataset ----*/
   private Node buildBST_PostOrderRoot(int[] data) {
     Node root = null;
-      //run a loop and insert the data
-    for(int i = data.length - 1; i >= 0; i--) {
+    // run a loop and insert the data
+    for (int i = data.length - 1; i >= 0; i--) {
       root = insert(root, data[i]);
     }
 
@@ -103,17 +117,19 @@ class BinarySearchTree {
   }
   /*---- ----*/
 
-  private Node insert(Node root, int value) { 
-    //base case => we reach leaf Node so add here
-    if(root == null) {
+  private Node insert(Node root, int value) {
+    // base case => we reach leaf Node so add here
+    if (root == null) {
       return new Node(value);
     }
 
-    //step1 => data is small than current root -> store it in the left side of current root
-    if(value < root.data) {
+    // step1 => data is small than current root -> store it in the left side of
+    // current root
+    if (value < root.data) {
       root.left = insert(root.left, value);
     }
-    //step2 => data is greater than current root -> store it in the right side of current root
+    // step2 => data is greater than current root -> store it in the right side of
+    // current root
     else {
       root.right = insert(root.right, value);
     }
@@ -205,49 +221,91 @@ class BinarySearchTree {
 
   }
   /*---- ----*/
-  
+
   /*---- Search in BST ----*/
   private boolean search(Node root, int key) {
-    //base case 1 =>  we reach leaf Node
-    if(root == null) {
+    // base case 1 => we reach leaf Node
+    if (root == null) {
       return false;
     }
-    //base case 2 => key and data match
-    if(root.data == key) {
+    // base case 2 => key and data match
+    if (root.data == key) {
       return true;
     }
 
-      //step1 => search left side of current root
-    if(key < root.data) {
+    // step1 => search left side of current root
+    if (key < root.data) {
       return search(root.left, key);
-    } 
-      //step2 => search right side of current root
+    }
+    // step2 => search right side of current root
     else {
       return search(root.right, key);
     }
   }
   /*---- ----*/
 
-  /*---- ----*/
+  private Node deleteNode(Node root, int key) {
+    // step1 => search left side of current root
+    if (key < root.data) {
+      root.left = deleteNode(root.left, key);
+    }
+    // step2 => search right side of current root
+    else if (key > root.data) {
+      root.right = deleteNode(root.right, key);
+    }
+    // step3 => root matches with key
+    else {
+      // case 1 => delete leaf Node
+      if (root.left == null && root.right == null) {
+        return null;
+      }
 
+      // case 2 => delete Node with single leaf
+      if (root.left == null) {
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+
+      // case 3 => delete Node with both child
+      Node successor = findInOrderSuccessor(root.right);
+      root.data = successor.data;
+      root.right = deleteNode(root.right, successor.data);
+    }
+
+    return root;
+  }
+
+  private Node findInOrderSuccessor(Node root) {
+    while (root.right != null) {
+      root = root.right;
+    }
+    return root;
+  }
+
+  /*---- ----*/
 }
 
 public class Implement_BinarySearchTree {
   public static void main(String[] args) {
-    int[] dataSet1= {8, 5, 3, 1, 4, 14, 10, 11, 6};
-    
+    int[] dataSet1 = { 8, 5, 3, 1, 4, 14, 10, 11, 6 };
+
     BinarySearchTree bst = new BinarySearchTree(dataSet1);
-        
-    System.out.println("root >> " +bst.root.data);
+
+    System.out.println("root >> " + bst.root.data);
     bst.inOrderTraversal();
     bst.preOrderTraversal();
     bst.postOrderTraversal();
     bst.levelOrderTraversal();
-        
+
     bst.insert(9);
     bst.inOrderTraversal();
     bst.levelOrderTraversal();
 
     bst.search(7);
+
+    bst.deleteNode(8);
+    bst.inOrderTraversal();
+    bst.levelOrderTraversal();
   }
 }
