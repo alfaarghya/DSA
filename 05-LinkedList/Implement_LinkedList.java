@@ -1,18 +1,18 @@
-class LinkedList {
+class LinkedList<DataType> {
   /*---- Node ----*/
   class Node {
-    int data;
+    DataType data;
     Node next;
 
-    Node(int data) {
+    Node(DataType data) {
       this.data = data; // Node's data
       this.next = null; // by default every Node point to null
     }
   }
   /*---- ----*/
 
-  public static Node head; // this will point to the first Node of LinkedList
-  public static Node tail; // this will point to the tail Node of LinkedList
+  public Node head; // this will point to the first Node of LinkedList
+  public Node tail; // this will point to the tail Node of LinkedList
   public static int size; // this will track the size of LinkedList
 
   /*---- Print Linked List ----*/
@@ -39,7 +39,7 @@ class LinkedList {
   /*---- ----*/
 
   /*---- add a Node at first of LinkedList ----*/
-  public void addFirst(int data) { // TC -> O(1)
+  public void addFirst(DataType data) { // TC -> O(1)
     // step1 => Create a newNode Node
     Node newNode = new Node(data);
 
@@ -49,7 +49,7 @@ class LinkedList {
       size++; // increase the size of LinkedList
       return;
     }
-    // step2 => connect newNode Node to head Noed
+    // step2 => connect newNode Node to head Node
     newNode.next = head;
     size++; // increase the size of LinkedList
     // step3 => newNode Node becomes head
@@ -58,7 +58,7 @@ class LinkedList {
   /*---- ----*/
 
   /*---- add a Node at the last of the LinkedList ----*/
-  public void addLast(int data) { // TC -> O(1)
+  public void addLast(DataType data) { // TC -> O(1)
     // step1 => Create a newNode Node
     Node newNode = new Node(data);
 
@@ -77,7 +77,7 @@ class LinkedList {
   /*---- ----*/
 
   /*---- add a Node with index ----*/
-  public void addWithIndex(int data, int index) { // TC -> O(n)
+  public void addWithIndex(DataType data, int index) { // TC -> O(n)
     // corner case 1 => index is zero
     if (index == 0) {
       addFirst(data);
@@ -109,13 +109,13 @@ class LinkedList {
   /*---- ----*/
 
   /*---- remove first Node of the LinkedList ----*/
-  public int removeFirst() { // TC -> O(1)
+  public DataType removeFirst() { // TC -> O(1)
     // step1 => temp Node point to head Node
     Node temp = head;
     // corner case 1 => LinkedList is empty
     if (head == null) {
       System.out.println("Linked List is Empty..........");
-      return Integer.MIN_VALUE;
+      return null;
     }
     // corner case 2 => only one Node in LinkedList
     if (head.next == null) {
@@ -135,11 +135,11 @@ class LinkedList {
   /*---- ----*/
 
   /*---- remove last Node of the LinkedList ----*/
-  public int removeLast() { // TC -> o(n)
+  public DataType removeLast() { // TC -> o(n)
     // corner case 1 => LinkedList is empty
     if (head == null) {
       System.out.println("Linked List is Empty..........");
-      return Integer.MIN_VALUE;
+      return null;
     }
     // corner case 2 => only one node in LinkedList
     if (head.next == null) {
@@ -161,25 +161,25 @@ class LinkedList {
     Node del = prev;
     // step3 => 2nd last node point to null and disconnect the last Node
     prev.next = null;
-    // step4 => now tail will point to prev Ndoe
+    // step4 => now tail will point to prev Node
     tail = prev;
-    size--; // decrese the size of LinkedList
+    size--; // decrease the size of LinkedList
 
     return del.data;
   }
   /*---- ----*/
 
   /*---- remove a Node with Index ----*/
-  public int removeWithIndex(int index) { // TC -> O(n)
+  public DataType removeWithIndex(int index) { // TC -> O(n)
     // corner case 3 => index is greater than size of LinkedList
     if (index > size) {
       System.out.println("unable to put the Node..........cause index is greater than size of LinkedList");
-      return Integer.MIN_VALUE;
+      return null;
     }
     // corner case 1 => LinkedList is empty
     if (head == null) {
       System.out.println("Linked List is Empty..........");
-      return Integer.MIN_VALUE;
+      return null;
     }
     // corner case 2 => when LinkedList have only 1 Node
     if (head.next == null) {
@@ -210,7 +210,7 @@ class LinkedList {
   /*---- ----*/
 
   /*---- Search in LinkedList ----*/
-  public int itrSearch(int key) { // TC -> O(n)
+  public int itrSearch(DataType key) { // TC -> O(n)
     int i = 0;
     Node temp = head;
 
@@ -224,11 +224,11 @@ class LinkedList {
     return -1;
   }
 
-  public int recursiveSearch(int key) { // TC -> O(n)
+  public int recursiveSearch(DataType key) { // TC -> O(n)
     return helper(head, key);
   }
 
-  private int helper(Node head, int key) {
+  private int helper(Node head, DataType key) {
     // base case -> empty LinkedList
     if (head == null) {
       return -1;
@@ -270,7 +270,7 @@ class LinkedList {
 
 public class Implement_LinkedList {
   public static void main(String[] args) {
-    LinkedList ll = new LinkedList();
+    LinkedList<Integer> ll = new LinkedList<>();
 
     ll.print();
 

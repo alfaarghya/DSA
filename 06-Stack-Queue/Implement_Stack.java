@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-class StackWithArrayList {
+class StackWithArrayList<DataType> {
   // create arraylist -> to store inserted data
-  static ArrayList<Integer> list = new ArrayList<>();
+  ArrayList<DataType> list = new ArrayList<>();
 
   /*---- check if stack is empty or not ----*/
   public boolean isEmpty() {
@@ -11,29 +11,29 @@ class StackWithArrayList {
   /*---- ----*/
 
   /*---- adding a data into stack ----*/
-  public void push(int data) { // TC -> O(1)
+  public void push(DataType data) { // TC -> O(1)
     list.add(data);
   }
 
   /*---- ----*/
 
   /*---- remove top data from stack ----*/
-  public int pop() { // TC -> O(1)
+  public DataType pop() { // TC -> O(1)
     if (isEmpty()) { // corner case -> stack is empty
       System.out.print("Empty.....");
-      return Integer.MIN_VALUE;
+      return null;
     }
-    int top = list.get(list.size() - 1);
+    DataType top = list.get(list.size() - 1);
     list.remove(list.size() - 1);
     return top;
   }
   /*---- ----*/
 
   /*---- peek into stack ----*/
-  public int peek() { // TC -> O(1)
+  public DataType peek() { // TC -> O(1)
     if (isEmpty()) { // corner case -> stack is empty
       System.out.print("Empty.....");
-      return Integer.MIN_VALUE;
+      return null;
     }
     return list.get(list.size() - 1);
   }
@@ -102,13 +102,13 @@ class StackWithArray {
 
 }
 
-class StackWithLinkedList {
+class StackWithLinkedList<DataType> {
   /*---- Node ----*/
   class Node {
-    int data;
+    DataType data;
     Node next;
 
-    Node(int data) {
+    Node(DataType data) {
       this.data = data;
       this.next = null;
     }
@@ -116,7 +116,7 @@ class StackWithLinkedList {
   /*---- ----*/
 
   /*---- create a empty stack ----*/
-  static Node head;
+  public Node head;
   /*---- ----*/
 
   /*---- is stack empty ----*/
@@ -126,7 +126,7 @@ class StackWithLinkedList {
   /*---- ----*/
 
   /*---- push a data into stack ----*/
-  public void push(int data) { // TC -> O(1)
+  public void push(DataType data) { // TC -> O(1)
     // step1 => create a new Node
     Node newNode = new Node(data);
     // connect the Node with head Node
@@ -137,11 +137,11 @@ class StackWithLinkedList {
   /*---- ----*/
 
   /*---- pop a data from stack ----*/
-  public int pop() { // TC -> O(1)
+  public DataType pop() { // TC -> O(1)
     // corner case => stack is empty
     if (head == null) {
       System.out.println(">> Stack is empty.........");
-      return Integer.MIN_VALUE;
+      return null;
     }
     // step1 => del Node point to head;
     Node del = head;
@@ -155,11 +155,11 @@ class StackWithLinkedList {
   /*---- ----*/
 
   /*---- peek on top of Stack ----*/
-  public int peek() { // TC -> O(1)
+  public DataType peek() { // TC -> O(1)
     // corner case => stack is empty
     if (head == null) {
       System.out.println(">> Stack is empty.........");
-      return Integer.MIN_VALUE;
+      return null;
     }
 
     return head.data;
@@ -169,7 +169,7 @@ class StackWithLinkedList {
 
 public class Implement_Stack {
   public static void main(String args[]) {
-    StackWithLinkedList sll = new StackWithLinkedList();
+    StackWithLinkedList<Integer> sll = new StackWithLinkedList<>();
     sll.push(0);
     sll.push(1);
     sll.push(2);
@@ -185,7 +185,7 @@ public class Implement_Stack {
     System.out.println("-----------------------------------------------");
     // ------------------
 
-    StackWithArrayList sla = new StackWithArrayList();
+    StackWithArrayList<Integer> sla = new StackWithArrayList<>();
     sla.push(0);
     sla.push(1);
     sla.push(2);

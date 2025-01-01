@@ -2,8 +2,8 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
 
-class Queue1 {
-  Stack<Integer> s1, s2;
+class Queue1<DataType> {
+  Stack<DataType> s1, s2;
 
   /*---- create a Queue ----*/
   Queue1() {
@@ -19,7 +19,7 @@ class Queue1 {
   /*---- ----*/
 
   /*---- add a data into Queue ----*/
-  public void add(int data) { // TC -> O(n)
+  public void add(DataType data) { // TC -> O(n)
     // corner case => Queue is empty
     if (isEmpty()) {
       s1.push(data);
@@ -40,11 +40,11 @@ class Queue1 {
   /*---- ----*/
 
   /*---- remove data from Queue ----*/
-  public int remove() { // TC -> O(1)
+  public DataType remove() { // TC -> O(1)
     // corner case => Queue is empty
     if (isEmpty()) {
       System.out.println(">> Queue is empty...........");
-      return Integer.MIN_VALUE;
+      return null;
     }
 
     return s1.pop();
@@ -52,11 +52,11 @@ class Queue1 {
   /*---- ----*/
 
   /*---- remove data from Queue ----*/
-  public int peek() { // TC -> O(1)
+  public DataType peek() { // TC -> O(1)
     // corner case => Queue is empty
     if (isEmpty()) {
       System.out.println(">> Queue is empty...........");
-      return Integer.MIN_VALUE;
+      return null;
     }
 
     return s1.peek();
@@ -65,8 +65,8 @@ class Queue1 {
 
 }
 
-class Queue2 {
-  Stack<Integer> s1, s2;
+class Queue2<DataType> {
+  Stack<DataType> s1, s2;
 
   /*---- create a Queue ----*/
   Queue2() {
@@ -82,24 +82,24 @@ class Queue2 {
   /*---- ----*/
 
   /*---- add a data into Queue ----*/
-  public void add(int data) { // TC -> O(1)
+  public void add(DataType data) { // TC -> O(1)
     s1.add(data);
   }
   /*---- ----*/
 
   /*---- remove data from Queue ----*/
-  public int remove() { // TC -> O(n)
+  public DataType remove() { // TC -> O(n)
     // corner case => Queue is empty
     if (isEmpty()) {
       System.out.println(">> Queue is empty...........");
-      return Integer.MIN_VALUE;
+      return null;
     }
     // step1 => run a loop AND move all data from s1 to s2
     while (!s1.isEmpty()) {
       s2.push(s1.pop());
     }
     // step2 => remove top data from s2
-    int del = s2.pop();
+    DataType del = s2.pop();
     // step3 => run a loop AND move all data from s2 to s1
     while (!s2.isEmpty()) {
       s1.push(s2.pop());
@@ -110,11 +110,11 @@ class Queue2 {
   /*---- ----*/
 
   /*---- remove data from Queue ----*/
-  public int peek() { // TC -> O(n)
+  public DataType peek() { // TC -> O(n)
     // corner case => Queue is empty
     if (isEmpty()) {
       System.out.println(">> Queue is empty...........");
-      return Integer.MIN_VALUE;
+      return null;
     }
 
     // step1 => run a loop AND move all data from s1 to s2
@@ -122,7 +122,7 @@ class Queue2 {
       s2.push(s1.pop());
     }
     // step2 => remove top data from s2
-    int peek = s2.peek();
+    DataType peek = s2.peek();
     // step3 => run a loop AND move all data from s2 to s1
     while (!s2.isEmpty()) {
       s1.push(s2.pop());
@@ -134,14 +134,14 @@ class Queue2 {
 
 }
 
-class QueueUsingDeque {
-  Deque<Integer> dq = new LinkedList<>();
+class QueueUsingDeque<DataType> {
+  Deque<DataType> dq = new LinkedList<>();
 
   boolean isEmpty() {
     return dq.isEmpty();
   }
 
-  void add(int data) {
+  public void add(DataType data) {
     if (isEmpty()) {
       dq.addFirst(data);
       return;
@@ -150,19 +150,19 @@ class QueueUsingDeque {
     dq.addLast(data);
   }
 
-  int remove() {
+  public DataType remove() {
     if (isEmpty()) {
       System.out.println("Queue is empty.........");
-      return Integer.MIN_VALUE;
+      return null;
     }
 
     return dq.removeFirst();
   }
 
-  int peek() {
+  public DataType peek() {
     if (isEmpty()) {
       System.out.println("Queue is empty.........");
-      return Integer.MIN_VALUE;
+      return null;
     }
 
     return dq.getFirst();
@@ -171,7 +171,7 @@ class QueueUsingDeque {
 
 public class Implement_QueueUsingStack {
   public static void main(String[] args) {
-    Queue1 q1 = new Queue1();
+    Queue1<Integer> q1 = new Queue1<>();
     System.out.println(q1.isEmpty());
     q1.add(0);
     q1.add(1);
@@ -188,7 +188,7 @@ public class Implement_QueueUsingStack {
 
     System.out.println("------------------------------");
 
-    Queue2 q2 = new Queue2();
+    Queue2<Integer> q2 = new Queue2<>();
     System.out.println(q2.isEmpty());
     q2.add(0);
     q2.add(1);
@@ -205,7 +205,7 @@ public class Implement_QueueUsingStack {
 
     System.out.println("------------------------------");
 
-    QueueUsingDeque q3 = new QueueUsingDeque();
+    QueueUsingDeque<Integer> q3 = new QueueUsingDeque<>();
     System.out.println(q3.isEmpty());
     q3.add(0);
     q3.add(1);
