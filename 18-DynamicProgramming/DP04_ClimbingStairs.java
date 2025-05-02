@@ -91,7 +91,7 @@ class ClimbingStairs {
 
 }
 
-public class RBD01_ClimbingStairs {
+public class DP04_ClimbingStairs {
   public static void main(String[] args) {
     ClimbingStairs obj = new ClimbingStairs();
 
