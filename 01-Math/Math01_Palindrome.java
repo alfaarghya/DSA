@@ -1,5 +1,6 @@
 /*
-LC-09
+LC09: Palindrome Number || https://leetcode.com/problems/palindrome-number
+
 Given an integer x, return true if x is a 
 palindrome
 , and false otherwise.
@@ -29,56 +30,62 @@ Constraints:
 
  */
 
-public class Math01_Palindrome {
+class Palindrome{
 
-    public static boolean approach1(int x) { // TC -> O(n) || SC -> O(1)
-        int number = x;
-        int n = 0;
-        while (number > 0) {
-            int reminder = number % 10;
-            number /= 10;
-            n = n * 10 + reminder;
+    // Time complexity -> O(log n) || Space complexity -> O(1)
+    public boolean approach1(int x) { 
+        int reverse = 0; //store x in reverse order
+        int original = x;
+
+        while(original > 0) {
+            reverse = reverse*10 + original % 10; // put values in reverse
+            original = original/10; //update original
         }
 
-        if (n == x) {
-            return true;
-        } else {
-            return false;
-        }
+        return reverse == x; //check if palindrome
     }
 
-    public static boolean approach2(int x) {
-        String str = Integer.toString(x);
+     // Time complexity -> O(n) || Space complexity -> O(n)
+    public boolean approach2(int x) {
+        String str = Integer.toString(x); //create string from x
         int n = str.length();
 
-        for (int i = 0; i < n / 2; i++) { // TC -> O(n) || SC -> O(1)
-            if (str.charAt(i) != str.charAt(n - i - 1)) {
+        for (int i = 0; i < n / 2; i++) {
+            if (str.charAt(i) != str.charAt(n - i - 1)) { //check ith char & (n-i-1)th char for palindrome
                 return false;
             }
         }
 
-        return true;
+        return true; //palindrome
     }
-
-    public static boolean approach3(int x) { // TC -> O(n) || SC -> O(1)
-        int reverse = 0;
-        int original = x;
-
-        while (original > 0) {
-            reverse = reverse * 10 + original % 10;
-            original /= 10;
-        }
-
-        return reverse == x;
-    }
-
+}
+ public class Math01_Palindrome {
     public static void main(String[] args) {
-        int x1 = 121;
-        int x2 = -121;
-        int x3 = 10;
+        Palindrome obj = new Palindrome();
+        int x;
 
-        System.out.println(approach1(x2));
-        System.out.println(approach2(x2));
-        System.out.println(approach3(x2));
+        //example 1
+        System.out.println("----- example 1 -----");
+        x = 5;
+        System.out.println(obj.approach1(x));
+        System.out.println(obj.approach2(x));
+
+        //example 2
+        System.out.println("----- example 2 -----");
+        x = 121;
+        System.out.println(obj.approach1(x));
+        System.out.println(obj.approach2(x));
+
+        //example 3
+        System.out.println("----- example 3 -----");
+        x = -121;
+        System.out.println(obj.approach1(x));
+        System.out.println(obj.approach2(x));
+
+        //example 4
+        System.out.println("----- example 4 -----");
+        x = 1110;
+        System.out.println(obj.approach1(x));
+        System.out.println(obj.approach2(x));
     }
 }
