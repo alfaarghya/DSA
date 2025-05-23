@@ -52,7 +52,7 @@ class Pow {
   }
 }
 
-public class RB06_Pow {
+public class RB07_Pow {
   public static void main(String[] args) {
     Pow obj = new Pow();
     double x;
