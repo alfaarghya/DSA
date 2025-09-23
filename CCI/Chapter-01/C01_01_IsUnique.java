@@ -72,11 +72,11 @@ class Solution {
         boolean[] ascii = new boolean[128]; // only 128 ASCII char are present
 
         for (char ch : str.toCharArray()) {
-            if (ascii[ch - 'a']) {
+            if (ascii[ch - ' ']) {
                 return false;
             }
 
-            ascii[ch - 'a'] = true;
+            ascii[ch - ' '] = true;
         }
 
         return true;
