@@ -122,6 +122,7 @@ class SetMatrixZeros {
     for (int j = 0; j < n; j++) {
       if (matrix[0][j] == 0) {
         isZeroFR = true;
+        break;
       }
     }
 
@@ -129,6 +130,7 @@ class SetMatrixZeros {
     for (int i = 0; i < m; i++) {
       if (matrix[i][0] == 0) {
         isZeroFC = true;
+        break;
       }
     }
 
