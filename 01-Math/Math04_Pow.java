@@ -34,12 +34,23 @@ Constraints:
  */
 
 class Pow {
-  //Time complexity: O(log n) || Space complexity: O(log n)
-  public double myPow(double x, int n) {
+  // Time complexity: O(n) || Space complexity: O(1)
+  public double solution1(double x, int n) {
+    double ans = 1.0;
+
+    for (int i = 0; i < n; i++) {
+      ans *= x;
+    }
+
+    return n < 0 ? 1.0 / ans : ans;
+  }
+
+  // Time complexity: O(log n) || Space complexity: O(log n)
+  public double solution2(double x, int n) {
     return n < 0 ? 1 / pow(x, -n) : pow(x, n);
   }
 
-  public double pow(double x, long n) {
+  private double pow(double x, long n) {
     // base class
     if (n == 0) {
       return 1;
@@ -50,6 +61,34 @@ class Pow {
 
     return n % 2 == 0 ? val : x * val;
   }
+
+  // Time complexity: O(log(n)) || Space complexity: O(1)
+  public double solution3(double x, int n) {
+    // corner case
+    if (n == 0) {
+      return 1;
+    }
+
+    // get the positive value
+    long N = n;
+    if (N < 0) {
+      N = -1 * N;
+    }
+    double ans = 1.0;
+
+    // calculate the X^n
+    while (N > 0) {
+      if (N % 2 == 0) { // even case => X^n = (X^2)^(n/2)
+        x = x * x;
+        N = N / 2;
+      } else { // odd case => X^n = X*X^(n-1)
+        ans = ans * x;
+        N = N - 1;
+      }
+    }
+
+    return n < 0 ? (double) 1.0 / (double) ans : ans;
+  }
 }
 
 public class Math04_Pow {
@@ -58,28 +97,36 @@ public class Math04_Pow {
     double x;
     int n;
 
-    //example 1
+    // example 1
     System.out.println("----- example 1 -----");
     x = 1;
     n = 10;
-    System.out.println(obj.myPow(x, n));
-    
-    //example 2
+    System.out.println(obj.solution1(x, n));
+    System.out.println(obj.solution2(x, n));
+    System.out.println(obj.solution3(x, n));
+
+    // example 2
     System.out.println("----- example 2 -----");
     x = -2;
     n = 5;
-    System.out.println(obj.myPow(x, n));
-    
-    //example 3
+    System.out.println(obj.solution1(x, n));
+    System.out.println(obj.solution2(x, n));
+    System.out.println(obj.solution3(x, n));
+
+    // example 3
     System.out.println("----- example 3 -----");
     x = 2;
     n = -5;
-    System.out.println(obj.myPow(x, n));
-    
-    //example 4
+    System.out.println(obj.solution1(x, n));
+    System.out.println(obj.solution2(x, n));
+    System.out.println(obj.solution3(x, n));
+
+    // example 4
     System.out.println("----- example 3 -----");
     x = 2;
     n = -254697;
-    System.out.println(obj.myPow(x, n));
+    System.out.println(obj.solution1(x, n));
+    System.out.println(obj.solution2(x, n));
+    System.out.println(obj.solution3(x, n));
   }
 }
